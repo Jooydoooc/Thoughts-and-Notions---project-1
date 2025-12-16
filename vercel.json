@@ -20,10 +20,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "TELEGRAM_BOT_TOKEN": "@telegram_bot_token",
-    "TELEGRAM_CHAT_ID": "@telegram_chat_id",
-    "TEACHER_PASSWORD": "@teacher_password"
-  }
+  ]
 }
