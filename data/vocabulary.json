@@ -1,0 +1,31 @@
+{
+  "thoughts_and_notions_1.1": [
+    {
+      "word": "invention",
+      "translation": "ixtiro",
+      "definition": "Something that has been invented or created for the first time",
+      "example": "The telephone was a revolutionary invention that changed communication.",
+      "level": "B1",
+      "synonyms": ["creation", "innovation", "discovery"],
+      "part_of_speech": "noun"
+    },
+    {
+      "word": "common",
+      "translation": "keng tarqalgan",
+      "definition": "Occurring, found, or done often; prevalent",
+      "example": "It's common to see people using smartphones everywhere.",
+      "level": "A2",
+      "synonyms": ["widespread", "popular", "usual"],
+      "part_of_speech": "adjective"
+    },
+    {
+      "word": "engineer",
+      "translation": "muhandis",
+      "definition": "A person who designs, builds, or maintains engines, machines, or structures",
+      "example": "The civil engineer designed the new bridge.",
+      "level": "B1",
+      "synonyms": ["designer", "architect", "technician"],
+      "part_of_speech": "noun"
+    }
+  ]
+}
