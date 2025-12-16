@@ -1,0 +1,20 @@
+{
+  "thoughts_and_notions_1.1": {
+    "title": "Past Simple Tense",
+    "explanation": "The Past Simple tense is used to talk about completed actions in the past. We use it for actions that happened at a specific time in the past or for past habits. Regular verbs add '-ed' (invent → invented), while irregular verbs have special forms (wear → wore).",
+    "structure": "Subject + Verb (Past Form) + Object/Complement",
+    "rules": [
+      "Use '-ed' for regular verbs: work → worked, play → played",
+      "Irregular verbs have unique forms: go → went, see → saw, wear → wore",
+      "Use 'did not' (didn't) + base form for negatives",
+      "Use 'did' + subject + base form for questions"
+    ],
+    "examples": [
+      "Whitcomb L. Judson invented the zipper in 1893. (specific time in past)",
+      "People wore high shoes with buttons. (past habit)",
+      "They didn't buy many of them. (negative form)",
+      "Did people like the first zippers? (question form)"
+    ],
+    "ielts_connection": "Past Simple is commonly used in IELTS Writing Task 1 for describing past trends and in Speaking Part 2 for describing past experiences."
+  }
+}
