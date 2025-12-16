@@ -1,0 +1,56 @@
+{
+  "thoughts_and_notions_1.1": {
+    "reading_comprehension": [
+      {
+        "id": "rc1",
+        "question": "When was the zipper invented?",
+        "options": ["1880", "1893", "1901", "1910"],
+        "correct": 1,
+        "type": "multiple_choice",
+        "ielts_type": "Multiple Choice",
+        "explanation": "The text states: 'Whitcomb L. Judson invented the zipper in 1893.'"
+      },
+      {
+        "id": "rc2",
+        "question": "What problem did the first zippers have?",
+        "options": ["They were too expensive", "They didn't stay closed well", "They were too heavy", "They were only one color"],
+        "correct": 1,
+        "type": "multiple_choice",
+        "ielts_type": "Multiple Choice",
+        "explanation": "The text says: 'his zippers didn't stay closed very well.'"
+      }
+    ],
+    "true_false_not_given": [
+      {
+        "id": "tfng1",
+        "statement": "Zippers are very strong and open easily.",
+        "answer": "true",
+        "type": "true_false_ng",
+        "ielts_type": "True/False/Not Given",
+        "explanation": "The text states: 'They are very strong, but they open and close very easily.'"
+      }
+    ],
+    "vocabulary": [
+      {
+        "id": "vocab1",
+        "question": "What does 'invention' mean in this context?",
+        "options": ["Something old and traditional", "Something created for the first time", "Something broken", "Something expensive"],
+        "correct": 1,
+        "type": "multiple_choice",
+        "ielts_type": "Vocabulary in Context",
+        "explanation": "'Invention' refers to something newly created."
+      }
+    ],
+    "grammar": [
+      {
+        "id": "grammar1",
+        "question": "Which sentence uses Past Simple correctly?",
+        "options": ["He invent the zipper in 1893.", "He invents the zipper in 1893.", "He invented the zipper in 1893.", "He is inventing the zipper in 1893."],
+        "correct": 2,
+        "type": "multiple_choice",
+        "ielts_type": "Grammar Recognition",
+        "explanation": "'invented' is the Past Simple form of 'invent'."
+      }
+    ]
+  }
+}
