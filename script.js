@@ -1006,17 +1006,29 @@ function closeTeacherModal() {
     document.getElementById('teacherModal').style.display = 'none';
 }
 
-function enterTeacherMode() {
+async function enterTeacherMode() {
     const password = document.getElementById('teacherPassword').value;
-    
-    // In production, use environment variables for password
-    if (password === 'teacher123') {
-        document.getElementById('loginPage').style.display = 'none';
-        document.getElementById('teacherModal').style.display = 'none';
-        document.getElementById('teacherDashboard').style.display = 'block';
-        loadTeacherDashboard();
-    } else {
-        alert('Incorrect password');
+
+    try {
+        const res = await fetch('/api/teacher-auth', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('teacherModal').style.display = 'none';
+            document.getElementById('teacherDashboard').style.display = 'block';
+            loadTeacherDashboard();
+        } else {
+            alert('Incorrect password');
+        }
+    } catch (err) {
+        alert('Authentication error');
+        console.error(err);
     }
 }
 
