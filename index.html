@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Reading Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-container" id="loginPage">
+        <div class="login-card">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-book-reader"></i>
+                </div>
+                <h1>IELTS Reading Platform</h1>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="name"><i class="fas fa-user"></i> Name</label>
+                    <input type="text" id="name" required placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="surname"><i class="fas fa-users"></i> Surname</label>
+                    <input type="text" id="surname" required placeholder="Enter your surname">
+                </div>
+                <div class="form-group">
+                    <label for="group"><i class="fas fa-layer-group"></i> Group</label>
+                    <select id="group" required>
+                        <option value="">Select Group</option>
+                        <option value="Elementary 9:30">Elementary 9:30</option>
+                        <option value="Brain Hackers">Brain Hackers</option>
+                        <option value="IELTS Advanced">IELTS Advanced</option>
+                        <option value="General English">General English</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="form-group" id="otherGroupContainer" style="display: none;">
+                    <label for="otherGroup"><i class="fas fa-edit"></i> Specify Your Group</label>
+                    <input type="text" id="otherGroup" placeholder="Enter your group name">
+                </div>
+                <div class="form-group">
+                    <label for="loginTime"><i class="fas fa-clock"></i> Login Time</label>
+                    <input type="text" id="loginTime" readonly>
+                </div>
+                <button type="submit" class="btn">
+                    <i class="fas fa-sign-in-alt"></i> Enter Platform
+                </button>
+            </form>
+            <div class="teacher-mode-link" onclick="showTeacherMode()">
+                <i class="fas fa-chalkboard-teacher"></i> Teacher Mode
+            </div>
+        </div>
+    </div>
+
+    <!-- Teacher Mode Login -->
+    <div class="modal" id="teacherModal" style="display: none;">
+        <div class="modal-content">
+            <h2 style="color: var(--secondary); margin-bottom: 20px;">
+                <i class="fas fa-chalkboard-teacher"></i> Teacher Mode
+            </h2>
+            <div class="form-group">
+                <label for="teacherPassword"><i class="fas fa-key"></i> Password</label>
+                <input type="password" id="teacherPassword" placeholder="Enter teacher password">
+            </div>
+            <button class="btn" onclick="enterTeacherMode()">
+                <i class="fas fa-unlock"></i> Enter Teacher Mode
+            </button>
+            <button class="btn" onclick="closeTeacherModal()" style="background: var(--danger); margin-top: 10px;">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Platform -->
+    <div class="platform-container" id="platformContainer" style="display: none;">
+        <div class="container">
+            <div class="header">
+                <h1><i class="fas fa-book-open"></i> IELTS Reading Platform</h1>
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-details">
+                        <h3 id="userName"></h3>
+                        <p><i class="fas fa-users"></i> <span id="userGroup"></span></p>
+                    </div>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Books Grid -->
+            <div id="booksSection">
+                <div class="section-header">
+                    <h2>Available Books</h2>
+                    <div class="progress-summary" onclick="showProgressSummary()">
+                        <i class="fas fa-chart-line"></i> View Progress
+                    </div>
+                </div>
+                <div class="books-grid" id="booksGrid">
+                    <!-- Books loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- Unit View -->
+            <div class="unit-view" id="unitView" style="display: none;">
+                <button class="back-btn" onclick="showBooks()">
+                    <i class="fas fa-arrow-left"></i> Back to Books
+                </button>
+                
+                <!-- Unit Navigation -->
+                <div class="unit-navigation">
+                    <div class="unit-selector">
+                        <select id="unitSelect" onchange="loadUnit(this.value)"></select>
+                        <div class="unit-progress">
+                            <div class="progress-circle" id="unitProgressCircle">
+                                <svg width="40" height="40">
+                                    <circle cx="20" cy="20" r="15"></circle>
+                                    <circle cx="20" cy="20" r="15" id="progressCircle"></circle>
+                                </svg>
+                                <span id="progressText">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reading Section -->
+                <div class="reading-container">
+                    <div class="reading-header">
+                        <h2><i class="fas fa-file-alt"></i> <span id="unitTitle">Loading...</span></h2>
+                        <div class="reading-controls">
+                            <div class="skimming-timer" id="skimmingTimer">
+                                <i class="fas fa-stopwatch"></i> 
+                                <span id="timerDisplay">01:00</span>
+                                <button class="timer-btn" onclick="startSkimmingTimer()">Start</button>
+                            </div>
+                            <div class="speed-control">
+                                <label><i class="fas fa-tachometer-alt"></i> Speed:</label>
+                                <input type="range" id="speedControl" min="1" max="9" step="1" value="5">
+                                <span id="speedValue">5x</span>
+                            </div>
+                            <button class="control-btn" onclick="toggleReadAloud()" id="readAloudBtn">
+                                <i class="fas fa-volume-up"></i> Read Aloud
+                            </button>
+                            <button class="control-btn" onclick="toggleSkimming()" id="skimmingBtn">
+                                <i class="fas fa-eye-slash"></i> Skimming
+                            </button>
+                        </div>
+                    </div>
+                    <div class="reading-text" id="readingText">
+                        <!-- Text loaded dynamically -->
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="skimmingProgress"></div>
+                    </div>
+                    <div class="reading-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Reading Time: <span id="readingTime">0m</span></span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-eye"></i>
+                            <span>Words Read: <span id="wordsRead">0</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Section -->
+                <div class="study-section">
+                    <div class="section-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h2>Vocabulary Study <span class="difficulty-label" id="vocabDifficulty">B1</span></h2>
+                    </div>
+                    <div class="vocabulary-grid" id="vocabularyGrid">
+                        <!-- Vocabulary loaded dynamically -->
+                    </div>
+                    <div class="vocab-stats">
+                        <div class="stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-number" id="foundCount">0</div>
+                            <div class="stat-label">Words Found</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="stat-number" id="totalCount">0</div>
+                            <div class="stat-label">Total Words</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-number" id="percentage">0%</div>
+                            <div class="stat-label">Progress</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grammar Section -->
+                <div class="grammar-section">
+                    <div class="section-title">
+                        <i class="fas fa-language"></i>
+                        <h2>Grammar Focus</h2>
+                    </div>
+                    <div id="grammarContent">
+                        <!-- Grammar loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Exercises Section -->
+                <div class="exercises-section">
+                    <div class="section-title">
+                        <i class="fas fa-tasks"></i>
+                        <h2>IELTS Reading Exercises</h2>
+                    </div>
+                    <div class="ielts-instructions">
+                        <p><i class="fas fa-info-circle"></i> Complete these IELTS-style exercises. Each question type is designed to improve your reading skills.</p>
+                    </div>
+                    <div id="exercisesContainer">
+                        <!-- Exercises loaded dynamically -->
+                    </div>
+                    <button class="btn submit-btn" onclick="submitExercises()">
+                        <i class="fas fa-paper-plane"></i> Submit Answers
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Summary Modal -->
+    <div class="modal" id="progressModal" style="display: none;">
+        <div class="modal-content" style="max-width: 800px;">
+            <h2 style="color: var(--secondary); margin-bottom: 20px;">
+                <i class="fas fa-chart-line"></i> Progress Summary
+            </h2>
+            <div id="progressData">
+                <!-- Progress data loaded dynamically -->
+            </div>
+            <button class="btn" onclick="closeProgressModal()" style="width: 200px;">
+                <i class="fas fa-check"></i> Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div class="modal" id="resultsModal" style="display: none;">
+        <div class="modal-content">
+            <h2 style="color: var(--secondary); margin-bottom: 20px;">Exercise Results</h2>
+            <div class="result-score" id="finalScore">0/0</div>
+            <div class="result-message" id="resultMessage"></div>
+            <div class="result-details" id="resultDetails"></div>
+            <button class="btn" onclick="closeResults()" style="width: 200px;">
+                <i class="fas fa-check"></i> Continue
+            </button>
+        </div>
+    </div>
+
+    <!-- Teacher Dashboard -->
+    <div class="platform-container" id="teacherDashboard" style="display: none;">
+        <div class="container">
+            <div class="header">
+                <h1><i class="fas fa-chalkboard-teacher"></i> Teacher Dashboard</h1>
+                <div class="user-info">
+                    <button class="logout-btn" onclick="exitTeacherMode()">
+                        <i class="fas fa-times"></i> Exit Teacher Mode
+                    </button>
+                </div>
+            </div>
+            
+            <div class="teacher-content">
+                <div class="teacher-section">
+                    <h2><i class="fas fa-users"></i> Student Submissions</h2>
+                    <div class="teacher-controls">
+                        <select id="groupFilter" onchange="filterSubmissions()">
+                            <option value="all">All Groups</option>
+                            <!-- Groups loaded dynamically -->
+                        </select>
+                        <button class="btn" onclick="exportData('json')">
+                            <i class="fas fa-download"></i> Export JSON
+                        </button>
+                        <button class="btn" onclick="exportData('csv')">
+                            <i class="fas fa-file-csv"></i> Export CSV
+                        </button>
+                    </div>
+                    <div class="submissions-table-container">
+                        <table class="submissions-table" id="submissionsTable">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Group</th>
+                                    <th>Book</th>
+                                    <th>Unit</th>
+                                    <th>Score</th>
+                                    <th>Time</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="submissionsBody">
+                                <!-- Submissions loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
